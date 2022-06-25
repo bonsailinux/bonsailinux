@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Autostart Applications
+sxhkd -c ~/.config/berry/sxhkdrc &
+feh --bg-scale /usr/share/backgrounds/pine.jpg &
+picom --config ~/.config/picom/picom.conf &
+bash ~/.config/polybar/shapes/scripts/pywal.sh /usr/share/backgrounds/pine.jpg &
+bash ~/.config/polybar/launch.sh &
+pulseaudio &
+dunst &
+
+#Networking
+# see the man pages or arch wiki for NetworkManager.service/nmcli help; 
+# command included expects a file wifipassword to contain: 802-11-wireless-security.psk:[password]
+# this is really bad for security, use at your own risk:
+# nmcli con up '[insert wifi network name here]' passwd-file ~/.config/berry/.secrets/wifipassword &
+#
+# Alternatively, you can ask on boot every time with the following:
+# kitty nmcli con up '[insert wifi network name here]' --ask
+
+
+# Set decoration geometry
+berryc border_width       5
+berryc inner_border_width 3
+berryc title_height       30
+berryc top_gap            30
+
+# Set decoration colors
+berryc focus_color         3b573d
+berryc unfocus_color       74533e
+berryc inner_focus_color   3b573d
+berryc inner_unfocus_color 74533e
+berryc text_focus_color    111111
+berryc text_unfocus_color  eeeeee
+
+# Other options
+berryc smart_place "true"
+berryc draw_text   "true"
+berryc edge_lock   "true"
+berryc set_font    "Hack 11"
