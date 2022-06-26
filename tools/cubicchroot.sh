@@ -15,7 +15,7 @@ export ZSH_CUSTOM="$CHROOTHOME/.oh-my-zsh/custom/"
 export DUNSTCONFIG="$CHROOTHOME/.config/dunst/"
 export KITTYCONFIG="$CHROOTHOME/.config/kitty/"
 export PICOMCONFIG="$CHROOTHOME/.config/picom/"
-export POWERLINECONFIG="$CHROOTHOME/.config/powerline-shell/"
+
 export ROFICONFIG="$CHROOTHOME/.config/rofi/"
 export POLYBARCONFIG="$CHROOTHOME/.config/polybar/"
 
@@ -27,7 +27,8 @@ export POLYBARCONFIG="$CHROOTHOME/.config/polybar/"
 sudo apt update && sudo apt upgrade -y
 
 ## Installation
-sudo apt install git gh micro kitty zsh fonts-hack-ttf libx11-dev libxft-dev libxinerama-dev python3 python3-pip
+sudo apt install git gh micro zsh fonts-hack-ttf libx11-dev libxft-dev libxinerama-dev python3 python3-pip
+#kitty being moved to github grab for the latest and greatest features
 
 ################################
 ## GitHub Code 
@@ -43,20 +44,21 @@ git clone https://github.com/JLErvin/berry
 cd berry
 make
 sudo make install
+# required configs already present & handled below
 
 ## oh-my-zsh and plugins
 cd $SOURCEDIR
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-# required config tweaks already present in .zshrc, handled below
+# required configs already present & handled below
 
-## Powerline-shell
+## powerline-shell
 cd $SOURCEDIR
 git clone https://github.com/b-ryan/powerline-shell
 cd powerline-shell
 python setup.py install
-# required config tweaks already present in .zshrc, handled below
+# required configs already present & handled below
 
 ################################
 ## CONFIGS
@@ -74,8 +76,14 @@ cp $CHROOTHOME/.zshrc $CHROOTHOME/.zshrc-prebonsai
 rm $CHROOTHOME/.zshrc
 cp $SOURCEDIR/bonsailinux/configs/.zshrc $CHROOTHOME/
 
+## powerline-shell
+mkdir -p $CHROOTHOME/.config/powerline-shell/themes
+export POWERLINECONFIG="$CHROOTHOME/.config/powerline-shell/"
+cp $SOURCEDIR/bonsailinux/configs/.config/powerline-shell/config.json $POWERLINECONFIG/
+cp $SOURCEDIR/bonsailinux/configs/.config/powerline-shell/themes/pine.py $POWERLINECONFIG/themes/
+
 ## berry
-mkdir $CHROOTHOME/.config/berry
+mkdir -p $CHROOTHOME/.config/berry
 export BERRYCONFIG="$CHROOTHOME/.config/berry/"
 cp $SOURCEDIR/bonsailinux/configs/.config/berry/autostart $BERRYCONFIG
 cp $SOURCEDIR/bonsailinux/configs/.config/berry/sxhkdrc $BERRYCONFIG
